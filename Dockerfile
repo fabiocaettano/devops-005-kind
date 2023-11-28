@@ -1,7 +1,8 @@
-FROM golang:1.19
+FROM golang:1.19 as base
+RUN apt update
 WORKDIR /app
 COPY go.mod ./
-COPY *.go ./
-RUN go build -o /server
+COPY . .
+RUN go build -o server ./cmd/server
 EXPOSE 8080
 CMD ["./server"]
