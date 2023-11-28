@@ -1,4 +1,7 @@
-FROM golang:1.20
+FROM golang:1.19
 WORKDIR /app
-COPY . .
-CMD ["tail","-f","/dev/null"]
+COPY go.mod ./
+COPY *.go ./
+RUN go build -o /server
+EXPOSE 8080
+CMD ["./server"]
