@@ -3,6 +3,7 @@ RUN apt update
 WORKDIR /app
 COPY go.mod ./
 COPY . .
-RUN go build -o server ./cmd/server
+RUN go build -o serve cmd/server/server.go
 EXPOSE 8080
-CMD ["./server"]
+#CMD ["tail","-f","/dev/null"]
+CMD ["./serve"]
