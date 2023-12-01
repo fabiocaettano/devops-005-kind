@@ -1,7 +1,7 @@
 # devops-005-kubernetes
 
 Sumário
-
+- [Kubernetes](#kubernetes)
 - [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
 - [Configurar Ambiente](#configurar-ambiente)    
 - [Criar e Deletar Cluster](#criar-e-deletar-cluster)
@@ -11,11 +11,18 @@ Sumário
 - [Chavear Clusters](#chavear-clusters)
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 
+## Kubernetes 
+
+1. Definição no site kubernetes.io
+<i>"Kubernetes (K8s) é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner."</i>
+
 
 ## Provisionar Máquina virtual (Droplet)
 
 Confugaração do Droplet:
-
+-
+-
+-
 
 Provisionar:
 
