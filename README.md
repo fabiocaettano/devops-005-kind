@@ -1,32 +1,57 @@
 # devops-005-kind
 Kubernetes curso FullCycle
 
-## Configurar Ambiente
+- [Configurar Ambiente](#configurar-ambiente)
+- [Criar e Deletar Cluster](#criar-e-deletar-cluster)
+- [Criar Nodes](#criar-nodes)
+- [Chavear Clusters](#chavear-clusters)
+- [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 
-Ativar o agent ssh:
-``` ssh
-ssh-agent bash
-ssh-add ~/.ssh/fullcycle
-```
+
+## Configurar Ambiente
 
 Instalar Kubectl:
 ``` bash
-kubectl apply -i hosts/inventory.ini playbook/collections/kubectl.yaml
+#ativar o agent ssh
+ssh-agent bash
+ssh-add ~/.ssh/chaveSSH
+#executar manifesto
+ansible-playbook apply -i hosts/inventory.ini playbook/collections/kubectl.yaml
 ```
 Instalar Docker:
 ``` bash
-kubectl apply -i hosts/inventory.ini playbook/collections/docker.yaml
-```
-Instalar GO:
-``` bash
-kubectl apply -i hosts/inventory.ini playbook/collections/go.yaml
+#ativar o agent ssh
+ssh-agent bash
+ssh-add ~/.ssh/chaveSSH
+#executar manifesto
+ansible-playbook apply -i hosts/inventory.ini playbook/collections/docker.yaml
 ```
 Instalar Kind:
 ``` bash
+#ativar o agent ssh
+ssh-agent bash
+ssh-add ~/.ssh/chaveSSH
+#executar o manifesto
 kubectl apply -i hosts/inventory.ini playbook/collections/kind.yaml
 ```
 
-## Criando e Deletando Cluster no Kind
+Acessar máquina virtual:
+``` bash
+#ativar o agent ssh
+ssh-agent bash
+ssh-add ~/.ssh/chaveSSH
+#executar o mesmo
+ssh root@ipDaMáquinaVirual
+```
+
+Clonar projeto:
+``` bash
+git clone
+```
+
+
+
+## Criar e Deletar Cluster
 
 Criar o primeiro cluster:
 ``` bash
@@ -58,9 +83,9 @@ Deletar o cluster:
 kind delete clusters kind
 ```
 
-## Criando Nodes
+## Criar Nodes
 
-Arquivo kind.yaml para criar um cluster com 1 control pane e 3 worker nodes.
+Criar um cluster com 1 control pane e 3 worker nodes utilizando um arquivo de manifesto.
 ``` yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -73,7 +98,7 @@ nodes:
 
 Para aplicar esta configuração:
 ``` bash
-kind create cluster --config=kind.yaml --name=fullcycle
+kind create cluster --config=001-create-cluster.yaml --name=fullcycle
 ```
 
 Ativar:
@@ -86,7 +111,7 @@ Checar os nodes:
 kubectl get nodes
 ```
 
-## Consultar Clusters
+## Chavear Clusters
 
 Consultar clusters:
 ``` bash
@@ -101,19 +126,26 @@ Para chavear
 kubectl config use-context nomeDoCluster
 ```
 
-## Aplicativo 
+## App Para Aplicar os Conceitos
 
+Configuração:
 ``` Dockerfile
-FROM golang:1.20
+FROM golang:1.19 as base
+RUN apt update
 WORKDIR /app
+COPY go.mod ./
 COPY . .
-CMD ["tail","-f","/dev/null"]
+RUN go build -o server cmd/server/server.go
+EXPOSE 8080
+CMD ["./server"]
 ```
 
-```
+Subir o container:
+``` bash
 docker-compose up -d --build
 ```
 
-```
+Acessar o container:
+``` bash
 docker-compose exec goapp bash
 ```
