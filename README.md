@@ -1,16 +1,37 @@
 # devops-005-kind
 Kubernetes curso FullCycle
 
+- [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
 - [Configurar Ambiente](#configurar-ambiente)
+    - [Máquina Local](#máquina-local)
+    - [Chave SSH](#chave-ssh)
 - [Criar e Deletar Cluster](#criar-e-deletar-cluster)
 - [Criar Nodes](#criar-nodes)
 - [Chavear Clusters](#chavear-clusters)
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 
 
-## Configurar Ambiente
+## Provisionar Máquina virtual (Droplet)
 
-Instalar Kubectl:
+Confugaração do Droplet:
+
+
+Provisionar:
+
+```bash
+terraform apply -auto-approve
+```
+
+## Configurar Ambiente com Ansible
+
+###  Máquina Local
+
+1. Configurar o arquivo de inventário:
+``` ini
+
+```
+
+2. Instalar Kubectl:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -18,7 +39,7 @@ ssh-add ~/.ssh/chaveSSH
 #executar manifesto
 ansible-playbook apply -i hosts/inventory.ini playbook/collections/kubectl.yaml
 ```
-Instalar Docker:
+3. Instalar Docker:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -26,7 +47,7 @@ ssh-add ~/.ssh/chaveSSH
 #executar manifesto
 ansible-playbook apply -i hosts/inventory.ini playbook/collections/docker.yaml
 ```
-Instalar Kind:
+4. Instalar Kind:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -35,7 +56,18 @@ ssh-add ~/.ssh/chaveSSH
 kubectl apply -i hosts/inventory.ini playbook/collections/kind.yaml
 ```
 
-Acessar máquina virtual:
+### Chave SSH
+
+Enviar chave SSH da máquina local para o Droplet.
+
+``` bash
+scp /home/user/.ssh/nomeDaChave root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave
+scp /home/user/.ssh/nomeDaChave.pub root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave.pub
+```
+
+### Maquina Virtual (Droplet)
+
+1. Acessar máquina virtual:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -44,10 +76,16 @@ ssh-add ~/.ssh/chaveSSH
 ssh root@ipDaMáquinaVirual
 ```
 
-Clonar projeto:
+2. Clonar projeto:
 ``` bash
 git clone
 ```
+
+3. Configurar usuário git:
+``` bash
+
+```
+
 
 
 
