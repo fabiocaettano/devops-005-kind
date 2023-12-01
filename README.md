@@ -5,7 +5,7 @@ Sumário
 - [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
 - [Configurar Ambiente](#configurar-ambiente)    
 - [Criar e Deletar Cluster](#criar-e-deletar-cluster)
-    -[Kind](#kind)
+    - [Kind](#kind)
 - [Criar Nodes](#criar-nodes)
     - [Kind](#kind-1)
 - [Chavear Clusters](#chavear-clusters)
