@@ -1,12 +1,13 @@
-# devops-005-kind
-Kubernetes curso FullCycle
+# devops-005-kubernetes
+
+Sumário
 
 - [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
-- [Configurar Ambiente](#configurar-ambiente)
-    - [Máquina Local](#máquina-local)
-    - [Chave SSH](#chave-ssh)
+- [Configurar Ambiente](#configurar-ambiente)    
 - [Criar e Deletar Cluster](#criar-e-deletar-cluster)
+    -[Kind](#kind)
 - [Criar Nodes](#criar-nodes)
+    - [Kind](#kind-1)
 - [Chavear Clusters](#chavear-clusters)
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 
@@ -23,8 +24,6 @@ terraform apply -auto-approve
 ```
 
 ## Configurar Ambiente com Ansible
-
-###  Máquina Local
 
 1. Configurar o arquivo de inventário:
 ``` ini
@@ -56,18 +55,14 @@ ssh-add ~/.ssh/chaveSSH
 kubectl apply -i hosts/inventory.ini playbook/collections/kind.yaml
 ```
 
-### Chave SSH
-
-Enviar chave SSH da máquina local para o Droplet.
+5. Enviar chave SSH da máquina local para o Droplet.
 
 ``` bash
 scp /home/user/.ssh/nomeDaChave root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave
 scp /home/user/.ssh/nomeDaChave.pub root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave.pub
 ```
 
-### Maquina Virtual (Droplet)
-
-1. Acessar máquina virtual:
+6. Acessar máquina virtual:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -76,20 +71,20 @@ ssh-add ~/.ssh/chaveSSH
 ssh root@ipDaMáquinaVirual
 ```
 
-2. Clonar projeto:
+7. Clonar projeto na máquina virtual:
 ``` bash
 git clone
 ```
 
-3. Configurar usuário git:
+8. Configurar usuário git na máquina virtual:
 ``` bash
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
 
-
-
 ## Criar e Deletar Cluster
+
+### Kind
 
 Criar o primeiro cluster:
 ``` bash
@@ -122,6 +117,8 @@ kind delete clusters kind
 ```
 
 ## Criar Nodes
+
+### Kind
 
 Criar um cluster com 1 control pane e 3 worker nodes utilizando um arquivo de manifesto.
 ``` yaml
