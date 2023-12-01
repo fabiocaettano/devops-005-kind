@@ -83,9 +83,9 @@ git clone
 
 3. Configurar usuário git:
 ``` bash
-
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
 ```
-
 
 
 
