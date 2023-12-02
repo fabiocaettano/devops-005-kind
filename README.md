@@ -313,7 +313,7 @@ docker push fabiocaettano74/servergo:v01
 - Responsável por executar o Container
 - O Pod é efemero (nasce e morre)
 - Não é resiliente
-- O Pod sozinho ele não é resiliente.
+- O Pod sozinho não é muito útil
 
 2. Criar um Pod:
 ``` bash
@@ -353,3 +353,84 @@ kubectl delete pod server
 - Gerencia os Pods;
 - Escalonamento dos Pods;
 - Cria e Recria os Pods.
+
+2. Criar o Replicaset:
+
+Executar:
+```
+kubectl apply -f k8s/003-create-replicaset.yaml
+```
+
+3. Consultar Pods:
+
+Executar:
+``` bash
+kubectl get pods
+```
+Resultado:
+```bash
+NAME           READY   STATUS    RESTARTS   AGE
+server-fsv6k   1/1     Running   0          8s
+server-v6798   1/1     Running   0          8s
+```
+
+4. Consultar Replicaset
+
+Executar:
+``` bash
+kubectl get replicaset
+```
+
+Resultado:
+``` bash
+NAME     DESIRED   CURRENT   READY   AGE
+server   2         2         2       3m19s
+```
+
+5. Ao deletar um Pod, agora ele será recriado de forma automática por conta do ReplicaSet.
+
+O papel do Replicaset é manter o número de pods desejados (DESIRED).
+
+Deletar um pod:
+``` bash
+kubectl delete pod server-fsv6k
+```
+
+Ao consultar o POD observar a coluna AGE:
+``` bash
+NAME           READY   STATUS    RESTARTS   AGE
+server-5kq7d   1/1     Running   0          11s
+server-v6798   1/1     Running   0          7m27s
+```
+
+6. O kubernetes disponibliza um comando para checar a descrição de um POD.
+
+Visualizar a descrição do POD:
+``` bash
+kubectl describe pod 5kq7d
+```
+
+Os pods server-5kq7d e server-v6798 tem como base a imagem fabiocaettano74@servergo:v03.
+
+A imagem do manifesto será alterado para fabiocaettano74@servergo:v04.
+
+E o número de réplicas alterado para 4.
+
+Esta nova configuração será aplicada somente para os novos Pods.
+
+
+Excluir os Pods:
+
+``` bash
+kubectl delete pod server-5kq7d server-v6798
+```
+
+O Replicaset irá criar 02 novos Pods, com a nova configuração.
+Esse modelo não é muito produtivo.
+O próximo objeto *Deployment" resolve esa questão.
+
+6. Deletar o Replicaset
+
+``` bash
+kubectl delete replicaset server
+```
