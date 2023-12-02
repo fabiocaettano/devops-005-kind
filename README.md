@@ -19,6 +19,7 @@
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 - [Objetos Kubernetes](#objetos-kubernetes)
     - [Pod](#pod)
+    - [Replicaset](#replicaset)
 
 ## Kubernetes 
 
@@ -346,6 +347,9 @@ Resultado Esperado:
 kubectl delete pod server
 ```
 
+6. O próximo objeto *Replica Set* resolve a questão de Criar e Recriar os Pods.
+
+
 ### ReplicaSet
 
 1. Conceitos:
@@ -416,21 +420,70 @@ A imagem do manifesto será alterado para fabiocaettano74@servergo:v04.
 
 E o número de réplicas alterado para 4.
 
-Esta nova configuração será aplicada somente para os novos Pods.
+Esta nova configuração será aplicará a nova imagem somente os novos Pods.
 
 
-Excluir os Pods:
+Excluir os Pods para o Replicaset atuar e subir 02 novos Pods atualizados.:
 
 ``` bash
 kubectl delete pod server-5kq7d server-v6798
 ```
 
-O Replicaset irá criar 02 novos Pods, com a nova configuração.
-Esse modelo não é muito produtivo.
-O próximo objeto *Deployment" resolve esa questão.
-
-6. Deletar o Replicaset
+7. Deletar o Replicaset
 
 ``` bash
 kubectl delete replicaset server
+```
+
+8. Com relação atualização das imagens não é muito produtivo com o *ReplicaSet*.
+O próximo objeto *Deployment" resolve esa questão.
+
+
+### Deployment 
+
+1. Conceitos
+
+- O Deployment gerencia o Replicaset
+- Quando o manifesto for atualizado, os Pods serão destruibos, e recriados com a nova configuração.
+- Os Pods são destruidos de forma progressiva para não gerar um *Downtime*
+
+
+2. Alterações no manifesto 004-create-deployment.yaml:
+- Mudança na imagem para versão 05.
+- Alteração na quantidade de réplicas para 10.
+
+3. Aplicar manifesto:
+
+Executar:
+``` bash
+kbuectl apply -f k8es/004-create-deployment.yaml
+```
+
+Resultado:
+
+``` bash
+NAME                     READY   STATUS    RESTARTS   AGE
+server-b5984575f-556b7   1/1     Running   0          4m36s
+server-b5984575f-5wrz5   1/1     Running   0          4m36s
+server-b5984575f-fbwfj   1/1     Running   0          4m36s
+server-b5984575f-fdt6b   1/1     Running   0          4m36s
+server-b5984575f-kx24q   1/1     Running   0          4m36s
+server-b5984575f-pqnhw   1/1     Running   0          4m36s
+server-b5984575f-qbsns   1/1     Running   0          4m36s
+server-b5984575f-rhnwh   1/1     Running   0          4m36s
+server-b5984575f-wvhgn   1/1     Running   0          4m36s
+server-b5984575f-zmpvc   1/1     Running   0          4m36s
+```
+
+Consultar Deployment:
+
+``` bash
+kubectl get deployment
+```
+
+Resultado:
+
+``` bash
+NAME     READY   UP-TO-DATE   AVAILABLE   AGE
+server   10/10   10           10          5m34s
 ```
