@@ -6,7 +6,7 @@
 
 - [O que é Kubernetes ?](#kubernetes)
 - [Provisionar Máquina Virtual com TerraForm](#provisionar-máquina-virtual-com-terraform)
-- [Configurar Ambiente](#configurar-ambiente)    
+- [Configurar Ambiente com Ansible](#configurar-ambiente-com-ansible)    
 - [Chave SSH](#chave-ssh)
 - [Acessar VM](#acessar-vm)
 - [Clonar Projeto](#clonar-projeto)
@@ -26,7 +26,7 @@
 <i>"Kubernetes (K8s) é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner."</i>
 
 
-## Provisionar Máquina virtual (VM)
+## Provisionar Máquina Virtual com TerraForm
 
 1. Confugaração da VM:
 
