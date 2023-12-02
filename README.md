@@ -5,10 +5,12 @@
 - [Kubernetes](#kubernetes)
 - [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
 - [Configurar Ambiente](#configurar-ambiente)    
-- [Criar e Deletar Cluster](#criar-e-deletar-cluster)
+- [Chave SSH](#chave-ssh)
+- [Ferramentas Para Executar o k8s Localmente](#ferramentas-para-executar-o-k8s-localmente)
     - [Kind](#kind)
-- [Criar Nodes](#criar-nodes)
-    - [Kind](#kind-1)
+        - [Criar e Destruir Cluster]
+        - [Criar Nodes](#criar-nodes)
+    - [k3d] ()    
 - [Chavear Clusters](#chavear-clusters)
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 - [Objetos Kubernetes](#objetos-kubernetes)
@@ -75,14 +77,19 @@ ssh-add ~/.ssh/chaveSSH
 kubectl apply -i hosts/inventory.ini playbook/collections/kind.yaml
 ```
 
-5. Enviar chave SSH da máquina local para o Droplet.
+## Chave SSH
 
+Enviar chave SSH da máquina local para o Droplet:
 ``` bash
+#ativar o agent ssh
+ssh-agent bash
+ssh-add ~/.ssh/chaveSSH
+#executar o mesmo
 scp /home/user/.ssh/nomeDaChave root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave
 scp /home/user/.ssh/nomeDaChave.pub root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave.pub
 ```
 
-6. Acessar máquina virtual:
+1. Acessar máquina virtual:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -102,43 +109,43 @@ git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ```
 
-## Criar e Deletar Cluster
+## Ferramentas Para Executar o k8s Localmente
 
 ### Kind
 
-Criar o primeiro cluster:
+#### Criar e Destruir Cluster
+
+1. Criar um cluster básico:
 ``` bash
 kind create cluster
 ```
 
-Ativar o cluster:
+2. Ativar o cluster:
 ``` bash
 kubectl cluster-info --context kind-kind
 ```
 
-Consultar Docker:
+3. O kind criar containers :
 ``` bash
 docker ps
 ```
 
-Checar os nodes:
+4. Para checar os nodes criados pelo Kind:
 ```  bash
 kubectl get nodes
 ```
 
-Consultar o clusters:
+5. Consultar o clusters:
 ``` bash
 kind get clusters
 ```
 
-Deletar o cluster:
+6. Deletar o cluster:
 ``` bash
 kind delete clusters kind
 ```
 
-## Criar Nodes
-
-### Kind
+#### Criar Nodes
 
 Criar um cluster com 1 control pane e 3 worker nodes utilizando um arquivo de manifesto.
 ``` yaml
@@ -165,6 +172,8 @@ Checar os nodes:
 ``` bash
 kubectl get nodes
 ```
+
+### K3d
 
 ## Chavear Clusters
 
