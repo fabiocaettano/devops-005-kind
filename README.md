@@ -1,6 +1,7 @@
 # devops-005-kubernetes
 
-Sumário
+<b>Sumário</b>
+
 - [Kubernetes](#kubernetes)
 - [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
 - [Configurar Ambiente](#configurar-ambiente)    
@@ -10,31 +11,43 @@ Sumário
     - [Kind](#kind-1)
 - [Chavear Clusters](#chavear-clusters)
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
+- [Objetos Kubernetes](#objetos-kubernetes)
 
 ## Kubernetes 
 
-1. Definição no site kubernetes.io
+1. Definição no site kubernetes.io:
+
 <i>"Kubernetes (K8s) é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner."</i>
 
 
 ## Provisionar Máquina virtual (Droplet)
 
-Confugaração do Droplet:
--
--
--
+1. Confugaração do Droplet:
 
-Provisionar:
-
+2. Provisionar:
 ```bash
 terraform apply -auto-approve
 ```
 
+3. Visualizar o IP:
+``` bash
+terraform output
+```
+
+
+4. Destruir máquina virtual:
+``` bash
+terraform destroy -auto-approve
+```
+
+
+
 ## Configurar Ambiente com Ansible
 
-1. Configurar o arquivo de inventário:
+1. Configurar o arquivo de inventário (inventory.ini):
 ``` ini
-
+[droplet01]
+ipDaMaquinaVirtual
 ```
 
 2. Instalar Kubectl:
@@ -170,19 +183,23 @@ kubectl config use-context nomeDoCluster
 
 ## App Para Aplicar os Conceitos
 
-Configuração:
+App desenvolvido em GO.
+
+Gerenciar os pacotes:
+``` bash
+go mod init github.com/fabiocaettano/servergo
+```
+
+Configuração Dockerfile:
 ``` Dockerfile
 FROM golang:1.19 as base
 RUN apt update
 WORKDIR /app
-COPY go.mod ./
 COPY . .
-RUN go build -o server cmd/server/server.go
-EXPOSE 8080
-CMD ["./server"]
+CMD ["tail","-f","/dev/null"]
 ```
 
-Subir o container:
+Subir container:
 ``` bash
 docker-compose up -d --build
 ```
@@ -191,3 +208,73 @@ Acessar o container:
 ``` bash
 docker-compose exec goapp bash
 ```
+
+Gerar build dentro do container, será criado um arquivo server no diretório do projeto:
+``` bash
+GOOS=linux GOARCH=amd64 go build -o server ./cmd/server/
+#sair do container
+exit
+```
+
+Destruir o container:
+``` bash
+docker-compose down
+```
+Ajustar Dockerlife:
+``` Dockerfile
+FROM golang:1.19 as base
+RUN apt update
+WORKDIR /app
+COPY . .
+CMD ["./server"]
+```
+
+Subir o container:
+``` bash
+docker-compose up -d --build
+```
+
+Testar o Browser:
+``` 
+http://ipDaMaquinaVirtual:8080
+```
+
+Destruir o container:
+``` bash
+docker-compose down
+```
+
+Ajustar Dockerlife, para multi-stage build para diminuir o tamanho da imagem
+``` Dockerfile
+FROM golang:1.19 as base
+RUN apt update
+WORKDIR /app
+COPY . .
+
+FROM alpine:3.16 as binary
+COPY --from=base /app .
+EXPOSE 8080
+CMD ["./server"]
+```
+
+Autenticar no Docker Hub, será solicitado uma senha.
+Gerar um token no site do Docker Hub:
+
+``` bash
+docker login
+```
+
+Criar a imagem:
+``` bash
+docker build -t fabiocaettano74/servergo:v01 .
+```
+
+Subir a image para o DockerHub:
+``` bash
+docker push fabiocaettano74/servergo:v01
+```
+
+## Objetos Kubernetes
+
+### Pod
+
