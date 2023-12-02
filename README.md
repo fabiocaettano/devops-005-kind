@@ -5,7 +5,7 @@
 <b>Sumário</b>
 
 - [O que é Kubernetes ?](#kubernetes)
-- [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
+- [Provisionar Máquina Virtual com TerraForm](#provisionar-máquina-virtual-com-terraform)
 - [Configurar Ambiente](#configurar-ambiente)    
 - [Chave SSH](#chave-ssh)
 - [Acessar VM](#acessar-vm)
@@ -199,12 +199,12 @@ kubectl config use-context nomeDoCluster
 
 ### Ambiente Desenvolvimento
 
-Controle dos pacotes:
+1. Controle dos pacotes:
 ```
 go mod init github.com/fabiocaettano/servergo
 ```
 
-Dockerfile:
+2. Criar Dockerfile:
 ``` Dockerfile
 FROM golang:1.19 as base
 RUN apt update
@@ -213,7 +213,7 @@ COPY . .
 CMD ["tail","-f","/dev/null"]
 ```
 
-Docker-Compose:
+3. Manifesto Docker-Compose:
 ``` yaml
 version: '3.3'
 services: 
@@ -227,25 +227,29 @@ services:
       - .:/app
 ```
 
-Subir Container:
+4. Subir Container:
 ``` bash
 docker-compose up -d --build
 ```
-Acessar Container:
+5. Acessar Container:
 ```
 docker-compose exec goapp bash
 ```
 
-Executar o dentro do container Build:
+6. Executar o dentro do container Build:
 ``` bash
 CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/server
 ```
 
 ### Multi-Stage
 
-Diminuir o tamanho da imagem de 1GB para 7MB.
+1. Objetivo:
 
-DockerFile:
+- Diminuir o tamanho da imagem de 1GB para 7MB.
+<br>
+- Enviar imagem para o Docker Hub
+
+2. Criar DockerFile:
 ``` Dockerfile
 FROM golang:1.19 as base
 RUN apt update
@@ -261,7 +265,7 @@ EXPOSE 8080
 CMD ["./server"]
 ```
 
-Desabilitar o volume no Docker-Compose.
+3. Desabilitar o volume no Docker-Compose.
 
 Docker-Compose:
 ``` yaml
@@ -276,21 +280,22 @@ services:
 ```
 
 
-### Enviar imagem para o DockerHub
+4. Enviar imagem para o DockerHub
 
 Autenticar no Docker Hub, será solicitado uma senha.
+
 Gerar um token no site do Docker Hub:
 
 ``` bash
 docker login
 ```
 
-Criar a imagem:
+5. Criar a imagem:
 ``` bash
 docker build -t fabiocaettano74/servergo:v01 .
 ```
 
-Subir a image para o DockerHub:
+6. Subir a image para o DockerHub:
 ``` bash
 docker push fabiocaettano74/servergo:v01
 ```
