@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "goserver"
+  name: "server"
   labels: 
-    app: "goserver"
+    app: "server"
 spec:
   containers:
-  - name: goserver
-    image: fabiocaettano74/goserver:latest
+  - name: server
+    image: fabiocaettano74/servergo:v02
