@@ -197,14 +197,14 @@ kubectl config use-context nomeDoCluster
 
 ## App Para Aplicar os Conceitos
 
-App desenvolvido em GO.
+### Ambiente Desenvolvimento
 
-Gerenciar os pacotes:
-``` bash
+Controle dos pacotes:
+```
 go mod init github.com/fabiocaettano/servergo
 ```
 
-Configuração Dockerfile:
+Dockerfile:
 ``` Dockerfile
 FROM golang:1.19 as base
 RUN apt update
@@ -213,63 +213,70 @@ COPY . .
 CMD ["tail","-f","/dev/null"]
 ```
 
-Subir container:
+Docker-Compose:
+``` yaml
+version: '3.3'
+services: 
+  goapp:
+    build:
+      dockerfile: Dockerfile      
+      context: .
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+```
+
+Subir Container:
 ``` bash
 docker-compose up -d --build
 ```
-
-Acessar o container:
-``` bash
+Acessar Container:
+```
 docker-compose exec goapp bash
 ```
 
-Gerar build dentro do container, será criado um arquivo server no diretório do projeto:
+Executar o dentro do container Build:
 ``` bash
-GOOS=linux GOARCH=amd64 go build -o server ./cmd/server/
-#sair do container
-exit
+CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/server
 ```
 
-Destruir o container:
-``` bash
-docker-compose down
-```
-Ajustar Dockerlife:
+### Multi-Stage
+
+Diminuir o tamanho da imagem de 1GB para 7MB.
+
+DockerFile:
 ``` Dockerfile
 FROM golang:1.19 as base
 RUN apt update
 WORKDIR /app
+RUN go mod init github.com/fabiocaettano/servergo
 COPY . .
-CMD ["./server"]
-```
+RUN CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/server
 
-Subir o container:
-``` bash
-docker-compose up -d --build
-```
-
-Testar o Browser:
-``` 
-http://ipDaMaquinaVirtual:8080
-```
-
-Destruir o container:
-``` bash
-docker-compose down
-```
-
-Ajustar Dockerlife, para multi-stage build para diminuir o tamanho da imagem
-``` Dockerfile
-FROM golang:1.19 as base
-RUN apt update
+FROM scratch as binary
 WORKDIR /app
-COPY . .
-
-FROM alpine:3.16 as binary
-COPY --from=base /app .
+COPY --from=base /app/server .
 EXPOSE 8080
 CMD ["./server"]
 ```
+
+Desabilitar o volume no Docker-Compose.
+
+Docker-Compose:
+``` yaml
+version: '3.3'
+services: 
+  goapp:
+    build:
+      dockerfile: Dockerfile      
+      context: .
+    ports:
+      - 8080:8080
+```
+
+
+### Enviar imagem para o DockerHub
 
 Autenticar no Docker Hub, será solicitado uma senha.
 Gerar um token no site do Docker Hub:
