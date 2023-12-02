@@ -18,6 +18,7 @@
 - [Chavear Clusters](#chavear-clusters)
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 - [Objetos Kubernetes](#objetos-kubernetes)
+    - [Pod](#pod)
 
 ## Kubernetes 
 
@@ -293,8 +294,12 @@ docker login
 ``` bash
 docker build -t fabiocaettano74/servergo:v01 .
 ```
+6. Testar a imagem localmente:
+``` bash
+docker run --rm -p 8000:8080 fabiocaettano74/servergo
+```
 
-6. Subir a image para o DockerHub:
+7. Subir a image para o DockerHub:
 ``` bash
 docker push fabiocaettano74/servergo:v01
 ```
@@ -310,20 +315,18 @@ docker push fabiocaettano74/servergo:v01
 - Não é resiliente
 - O Pod sozinho ele não é resiliente.
 
-2. Comandos:
-
-Criar um Pod:
+2. Criar um Pod:
 ``` bash
 kubectl apply -f k8s/002-create-pod.yaml
 ```
 
-Consultar:
+3. Consultar:
 ``` bash
 kubectl get pods
 kubectl get po
 ```
 
-Liberar acesso ao Pod.
+4. Liberar acesso ao Pod:
 ``` bash
 kubectl port-forward pod/server 8080:8080
 ```
@@ -333,8 +336,20 @@ Abrir outro terminal:
 ``` bash
 curl http://localhost:8080
 ```
+Resultado Esperado:
+``` html
+<h1>Hello Kubernetes com Kind!!!</h1>
+```
 
-Deletar um Pod:
+5. Deletar um Pod:
 ``` bash
 kubectl delete pod server
 ```
+
+### ReplicaSet
+
+1. Conceitos:
+
+- Gerencia os Pods;
+- Escalonamento dos Pods;
+- Cria e Recria os Pods.
