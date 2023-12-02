@@ -245,9 +245,8 @@ CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/server
 
 1. Objetivo:
 
-- Diminuir o tamanho da imagem de 1GB para 7MB.
-<br>
-- Enviar imagem para o Docker Hub
+- Diminuir o tamanho da imagem de 1GB para 7MB;
+- Enviar imagem para o Docker Hub.
 
 2. Criar DockerFile:
 ``` Dockerfile
