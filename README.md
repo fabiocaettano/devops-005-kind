@@ -1,16 +1,20 @@
 # devops-005-kubernetes
 
+<h2>Laboratório para aprendizado da tecnologia Kubernetes.</h2>
+
 <b>Sumário</b>
 
-- [Kubernetes](#kubernetes)
+- [O que é Kubernetes ?](#kubernetes)
 - [Provisionar Máquina Virtual (Droplet)](#provisionar-máquina-virtual-droplet)
 - [Configurar Ambiente](#configurar-ambiente)    
 - [Chave SSH](#chave-ssh)
+- [Acessar VM](#acessar-vm)
+- [Clonar Projeto](#clonar-projeto)
 - [Ferramentas Para Executar o k8s Localmente](#ferramentas-para-executar-o-k8s-localmente)
     - [Kind](#kind)
-        - [Criar e Destruir Cluster]
+        - [Criar e Destruir Cluster](#criar-e-destruir-cluster)
         - [Criar Nodes](#criar-nodes)
-    - [k3d] ()    
+    - [k3d]()    
 - [Chavear Clusters](#chavear-clusters)
 - [App Para Aplicar os Conceitos](#app-para-aplicar-os-conceitos)
 - [Objetos Kubernetes](#objetos-kubernetes)
@@ -22,9 +26,9 @@
 <i>"Kubernetes (K8s) é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner."</i>
 
 
-## Provisionar Máquina virtual (Droplet)
+## Provisionar Máquina virtual (VM)
 
-1. Confugaração do Droplet:
+1. Confugaração da VM:
 
 2. Provisionar:
 ```bash
@@ -36,12 +40,10 @@ terraform apply -auto-approve
 terraform output
 ```
 
-
-4. Destruir máquina virtual:
+4. Destruir a VM:
 ``` bash
 terraform destroy -auto-approve
 ```
-
 
 
 ## Configurar Ambiente com Ansible
@@ -49,7 +51,7 @@ terraform destroy -auto-approve
 1. Configurar o arquivo de inventário (inventory.ini):
 ``` ini
 [droplet01]
-ipDaMaquinaVirtual
+ipDaVM
 ```
 
 2. Instalar Kubectl:
@@ -79,7 +81,7 @@ kubectl apply -i hosts/inventory.ini playbook/collections/kind.yaml
 
 ## Chave SSH
 
-Enviar chave SSH da máquina local para o Droplet:
+1. Enviar chave SSH da máquina local para a VM:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -89,7 +91,9 @@ scp /home/user/.ssh/nomeDaChave root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave
 scp /home/user/.ssh/nomeDaChave.pub root@ipDaMaquinaVirtual:/root/.ssh/nomeDaChave.pub
 ```
 
-1. Acessar máquina virtual:
+## Acessar VM
+
+1. Executar:
 ``` bash
 #ativar o agent ssh
 ssh-agent bash
@@ -98,12 +102,13 @@ ssh-add ~/.ssh/chaveSSH
 ssh root@ipDaMáquinaVirual
 ```
 
-7. Clonar projeto na máquina virtual:
+## Clonar Projeto
+1. Clonar projeto na máquina virtual:
 ``` bash
 git clone
 ```
 
-8. Configurar usuário git na máquina virtual:
+2. Configurar usuário git na máquina virtual:
 ``` bash
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
@@ -160,7 +165,7 @@ nodes:
 
 Para aplicar esta configuração:
 ``` bash
-kind create cluster --config=001-create-cluster.yaml --name=fullcycle
+kind create cluster --config=k8s/001-create-cluster.yaml --name=cluster-laboratorio
 ```
 
 Ativar:
@@ -185,7 +190,7 @@ Consultar Nodes:
 ``` bash
 kubectl get nodes
 ```
-Para chavear 
+Para chavear: 
 ``` bash
 kubectl config use-context nomeDoCluster
 ```
