@@ -303,3 +303,38 @@ docker push fabiocaettano74/servergo:v01
 
 ### Pod
 
+1. Conceitos:
+- É o menor objeto do Kubernetes
+- Responsável por executar o Container
+- O Pod é efemero (nasce e morre)
+- Não é resiliente
+- O Pod sozinho ele não é resiliente.
+
+2. Comandos:
+
+Criar um Pod:
+``` bash
+kubectl apply -f k8s/002-create-pod.yaml
+```
+
+Consultar:
+``` bash
+kubectl get pods
+kubectl get po
+```
+
+Liberar acesso ao Pod.
+``` bash
+kubectl port-forward pod/server 8080:8080
+```
+
+Mas esse acesso é somente interno.
+Abrir outro terminal:
+``` bash
+curl http://localhost:8080
+```
+
+Deletar um Pod:
+``` bash
+kubectl delete pod server
+```
