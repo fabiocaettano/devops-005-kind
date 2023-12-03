@@ -22,6 +22,7 @@
     - [Replicaset](#replicaset)
     - [Deployment](#deployment)
 - [RollOut e Revision](#rollout-e-revisões)
+- [Services](#services)
 
 ## Kubernetes 
 
@@ -537,4 +538,54 @@ kubectl rollout undo deployment server
 4. Retornar para uma versão especifica:
 ``` bash
 kubectl rollout undo deployment server --to-revision=6
+```
+
+## Services
+
+1. Conceitos:
+- Services é a porta de entrada da aplicação;
+- O Kuberntes faz o papel de Service Discovery;
+- Tipos de Services: Cluster IP, Node Port, Load Balancer e External Name;
+- O Service é vinculado com o Deployment, através do selectors.
+
+2. Aplicar o Service:
+``` bash
+kubectl aplly -f 005-create.service.yaml
+```
+
+3. Expor o service localmente:
+```
+kubectl port-forward service/server-service 8000:80
+```
+
+4. Manifesto Service
+
+Na url http://localhost:8000
+A port 8000, no comando é da máquina local.
+
+No comando *kubectl port-forward* informamos a porta 8000, e a porta 80 é do service.
+
+No manifesto a port 80 é do service.
+A port 8080, vinculado ao TargetPort é do container.
+
+O aplicativo que roda no container fica escutando a porta 8080:
+```go
+http.ListenAndServe(":8080", nil)
+```
+
+Manifesto:
+``` yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+spec:
+  selector:
+    app: server
+  type: ClusterIP
+  ports:
+  - name: server-service
+    port: 80
+    targetPort: 8080
+    protocol: TCP
 ```
