@@ -20,6 +20,7 @@
 - [Objetos Kubernetes](#objetos-kubernetes)
     - [Pod](#pod)
     - [Replicaset](#replicaset)
+    - [Deployment](#deployment)
 
 ## Kubernetes 
 
@@ -486,4 +487,53 @@ Resultado:
 ``` bash
 NAME     READY   UP-TO-DATE   AVAILABLE   AGE
 server   10/10   10           10          5m34s
+```
+
+## Rollout e Revisões
+
+1. Visualizar o histório.
+
+Executar:
+``` bash
+kubectl rollout history deployment server
+```
+Resultado:
+``` bash
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+3         <none>
+4         <none>
+```
+
+2. A coluna CHANGE-CAUSE possibilita deixar uma anotação, facilitando identificar a versão:
+
+Anotação será realizada na última REVISION, ou seja, na versão que está em execução.
+
+Exemplo:
+
+``` bash
+ kubectl annotate deployment/server kubernetes.io/change-cause="update image version v04 to v05"
+```
+
+Resultado:
+``` bash
+REVISION  CHANGE-CAUSE
+8         <none>
+9         <none>
+10        update image version v07 to v08
+11        update image version v04 to v05
+```
+
+
+3. Retornar versão anterior
+
+Executar:
+``` bash
+kubectl rollout undo deployment server
+```
+
+4. Retornar para uma versão especifica:
+``` bash
+kubectl rollout undo deployment server --to-revision=6
 ```
