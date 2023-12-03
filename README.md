@@ -21,6 +21,7 @@
     - [Pod](#pod)
     - [Replicaset](#replicaset)
     - [Deployment](#deployment)
+- [RollOut e Revision](#rollout-e-revisões)
 
 ## Kubernetes 
 
