@@ -157,7 +157,7 @@ kind delete clusters kind
 
 #### Criar Nodes
 
-Criar um cluster com 1 control pane e 3 worker nodes utilizando um arquivo de manifesto.
+1. Criar um cluster com 1 control pane e 3 worker nodes utilizando um arquivo de manifesto.
 ``` yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
@@ -168,17 +168,17 @@ nodes:
 - role: worker
 ```
 
-Para aplicar esta configuração:
+2. Para aplicar esta configuração:
 ``` bash
 kind create cluster --config=k8s/001-create-cluster.yaml --name=cluster-laboratorio
 ```
 
-Ativar:
+3. Ativar o cluster:
 ``` bash
 kubectl cluster-info --context kind-fullcycle
 ```
 
-Checar os nodes:
+4. Checar os nodes:
 ``` bash
 kubectl get nodes
 ```
@@ -187,15 +187,15 @@ kubectl get nodes
 
 ## Chavear Clusters
 
-Consultar clusters:
+1. Consultar clusters:
 ``` bash
 kubectl config get-clusters
 ```
-Consultar Nodes:
+2. Consultar Nodes:
 ``` bash
 kubectl get nodes
 ```
-Para chavear: 
+3. Para chavear: 
 ``` bash
 kubectl config use-context nomeDoCluster
 ```
@@ -478,7 +478,7 @@ server-b5984575f-wvhgn   1/1     Running   0          4m36s
 server-b5984575f-zmpvc   1/1     Running   0          4m36s
 ```
 
-Consultar Deployment:
+4. Consultar Deployment:
 
 ``` bash
 kubectl get deployment
@@ -558,22 +558,19 @@ kubectl aplly -f 005-create.service.yaml
 kubectl port-forward service/server-service 8000:80
 ```
 
-4. Manifesto Service
+4. Sobre as Portas
 
-Na url http://localhost:8000
-A port 8000, no comando é da máquina local.
+- Na url http://localhost:8000, a porta 8000 é da máquina local;
 
-No comando *kubectl port-forward* informamos a porta 8000, e a porta 80 é do service.
+- No comando *kubectl port-forward* informamos a porta 8000:80, onde 8000 é a porta local,
+ e a porta 80 é do service do kubernetes;
 
-No manifesto a port 80 é do service.
-A port 8080, vinculado ao TargetPort é do container.
+ ```  bash
+ kubectl port-forward pod/nomeDoPod 8000:80
+ ```
 
-O aplicativo que roda no container fica escutando a porta 8080:
-```go
-http.ListenAndServe(":8080", nil)
-```
+- No manifesto yaml a port 80 é vinculado o service. Já a porta 8080 é vinculado ao TargetPort é do container.
 
-Manifesto:
 ``` yaml
 apiVersion: v1
 kind: Service
@@ -588,4 +585,22 @@ spec:
     port: 80
     targetPort: 8080
     protocol: TCP
+```
+
+- O aplicativo executado pelo container fica escutando a porta 8080:
+``` go
+http.ListenAndServe(":8080", nil)
+```
+
+## Node Port
+
+1. Range de Porta:
+
+30.000 a 32.767
+
+
+2. Expor a porta localmente:
+
+``` bash
+ kubectl port-forward svc/server-service 8000:80
 ```
