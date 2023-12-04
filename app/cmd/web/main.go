@@ -17,6 +17,7 @@ func ConfigMap(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalf("Error reading file : %s", err)
 	}
-	fmt.Fprintf(w, "My Family: %s", string(data))
 	w.Write([]byte("<h1>Config Map</h1>"))
+	fmt.Fprintf(w, "My Family: %s", string(data))
+
 }
