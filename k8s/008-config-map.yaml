@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  labels:
+    app: server
+spec: 
+  selector:
+    matchLabels:
+      app: server
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+        - name: server
+          image: fabiocaettano74/servergo:v09                 
+          env:
+          - name: NAME
+            valueFrom:
+              configMapKeyRef:
+                name: server-envinronment
+                key: NAME
+          - name: AGE
+            valueFrom:
+              configMapKeyRef:
+                name: server-envinronment
+                key: AGE
+          volumeMounts:
+          - mountPath: "app/myfamily"      
+            name: config-members
+      volumes:
+        - name: config
+          configMap:
+            name: config-members
+            items:
+            - key: members
+              path: "family.txt"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+spec:
+  selector:
+    app: server
+  type: NodePort
+  ports:
+  - name: server-service
+    port: 80
+    targetPort: 8080
+    nodePort: 30001
+    protocol: TCP
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-members
+data:  
+  NAME: "fabio"
+  AGE: "49"
+  members: "fabio, michele, sophia"

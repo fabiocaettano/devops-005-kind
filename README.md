@@ -23,6 +23,8 @@
     - [Deployment](#deployment)
 - [RollOut e Revision](#rollout-e-revisões)
 - [Services](#services)
+    - [ClusterIP](#)
+    - [NodePort](#node-port)
 
 ## Kubernetes 
 
@@ -548,17 +550,20 @@ kubectl rollout undo deployment server --to-revision=6
 - Tipos de Services: Cluster IP, Node Port, Load Balancer e External Name;
 - O Service é vinculado com o Deployment, através do selectors.
 
-2. Aplicar o Service:
+
+### Cluster IP
+
+1. Aplicar o Service:
 ``` bash
 kubectl aplly -f 005-create.service.yaml
 ```
 
-3. Expor o service localmente:
+2. Expor o service localmente:
 ```
 kubectl port-forward service/server-service 8000:80
 ```
 
-4. Sobre as Portas
+3. Sobre as Portas
 
 - Na url http://localhost:8000, a porta 8000 é da máquina local;
 
@@ -592,7 +597,7 @@ spec:
 http.ListenAndServe(":8080", nil)
 ```
 
-## Node Port
+### Node Port
 
 1. Range de Porta:
 
@@ -603,4 +608,52 @@ http.ListenAndServe(":8080", nil)
 
 ``` bash
  kubectl port-forward svc/server-service 8000:80
+```
+
+## Variável de Ambiente
+
+``` yaml    
+    spec:
+      containers:
+        - name: server
+          image: fabiocaettano74/servergo:v09
+          env:
+          - name: NAME
+            value: "fabiocaettano"
+          - name: AGE
+            value: "49"
+```
+
+## Config Map
+
+ConfigMap:
+
+``` yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-envinronment
+data:
+  NAME: "michele"
+  AGE: "42"
+```
+
+Configuração do ConfigMap no Deployment:
+
+``` yaml
+spec:
+      containers:
+        - name: server
+          image: fabiocaettano74/servergo:v09          
+          env:
+          - name: NAME
+            valueFrom:
+              configMapKeyRef:
+                name: server-envinronment
+                key: NAME
+          - name: AGE
+            valueFrom:
+              configMapKeyRef:
+                name: server-envinronment
+                key: AGE
 ```

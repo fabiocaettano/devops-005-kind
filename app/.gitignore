@@ -1,2 +1,4 @@
 server
 go.mod
+docker-compose.yaml
+Dockerfile
