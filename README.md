@@ -12,7 +12,7 @@ kind create cluster --config=k8s/001-create-cluster.yaml --name=cluster-labs-kin
 kubectl cluster-info --context kind-fullcycle
 ```
 
-3. Subir ambiente:
+3. Subir ambiente, informar v01:
 ``` bash
 cd app
 . config.sh
@@ -21,4 +21,14 @@ cd app
 4. Consultar Pod:
 ``` bash
 kubectl get pods
+```
+
+5. Consultar Logs
+``` bash
+kubectl logs server
+```
+
+6. Acessar Pod:
+``` bash
+kubectl exec -it pod/server -- sh
 ```
