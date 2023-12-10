@@ -3,4 +3,3 @@ README.md
 docker-compose.yaml
 Dockerfile
 .gitignore
-go.mod

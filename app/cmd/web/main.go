@@ -13,10 +13,11 @@ func main() {
 }
 
 func ConfigMap(w http.ResponseWriter, r *http.Request) {
-	data, err := os.ReadFile("/app/myfamily/family.txt")
+	data, err := os.ReadFile("/app/external/files/family.txt")
 	if err != nil {
 		log.Fatalf("Error reading file : %s", err)
 	}
-	fmt.Fprintf(w, "My Family: %s", string(data))
-	w.Write([]byte("<h1>Config Map</h1>"))
+	fmt.Fprintln(w, "Versão 01 | POD")
+	fmt.Fprintln(w, "My Family:")
+	fmt.Fprintf(w, "%s", string(data))
 }

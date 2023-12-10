@@ -1,2 +1,6 @@
 fabio, 
 michele, 
+sophia,
+tereza,
+caetano,
+flavia
