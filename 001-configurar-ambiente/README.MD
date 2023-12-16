@@ -135,29 +135,29 @@ cd ansible
 
 5. Executar PlaybooK Individualmente:
 
-Docker:
+- Docker:
 ``` bash
 ansible-playbook -i inventory.ini playbook/01-docker.yaml
 ```
-Kubectl:
+- Kubectl:
 ``` bash
 ansible-playbook -i inventory.ini playbook/02-kubectl.yaml
 ```
-Kind:
+- Kind:
 ``` bash
 ansible-playbook -i inventory.ini playbook/03-kind.yaml
 ```
-K3D:
+- K3D:
 ``` bash
 ansible-playbook -i inventory.ini playbook/04-K3D.yaml
 ```
 
-Transferir chave devops da máquina local para remota:
+- Transferir chave devops da máquina local para remota:
 ``` bash
 ansible-playbook -i inventory.ini playbook/05-ssh.yaml
 ```
 
-Configurar as credenciais do Git:
+- Configurar as credenciais do Git:
 ``` bash
 ansible-playbook -i inventory.ini playbook/06-git.config.yaml
 ```
