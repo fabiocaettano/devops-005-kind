@@ -1,6 +1,6 @@
 # Configurar Ambiente
 
-## Gerar Chave SSH na Máquina Local
+$${\color{Red}## Gerar Chave SSH na Máquina Local}$$
 
 1. Gerar a chave
 ``` bash
@@ -25,7 +25,7 @@ ls -la ~/.ssh
 ```
 
 
-## Digital Ocean
+## Cloud Provider - Digital Ocean
 
 ### Configurar SSH
 
@@ -37,11 +37,11 @@ ls -la ~/.ssh
 cat ~/.ssh/devops.pub
 ```
 
-2. Voltar no site e colar a Public Key.
+3. Voltar no site e colar a Public Key.
 
-3. Informar o nome Public Key, o mesmo da máquia local.
+4. Informar o nome Public Key, o mesmo da máquia local.
 
-4. Botão *Add SSH Key*.
+5. Botão *Add SSH Key*.
 
 
 ### Gerar TOKEN
@@ -55,9 +55,9 @@ cat ~/.ssh/devops.pub
 4. Guardar num local seguro e não publicar em nenhum local, é um dado sensivel.
 
 
-## VM
+## Máquina Virtual - Droplet
 
-### Provisionar VM com TerraForm
+### Provisionar Máquina Virtual com TerraForm
 
 1. A configuração do Terraform irá provisionar uma máquina com a seguinte configuração:
 - Sistema Operacional Ubuntu 20.4;
@@ -89,7 +89,6 @@ terraform output
 ```
 
 5. Acessar máquina virtual:
-
 ``` bash
 ssh agent bash
 ssh add ~/.ssh/devops
@@ -97,12 +96,11 @@ ssh root@IpDaVm
 ```
 
 6. Após usar o recurso é necessário destrui-lo para evitar custos, o cloud-provider é cobrado.
-
 ``` bash
 terraform destroy -auto-approve
 ```
 
-# ## Configurar VM com Ansible
+### Configurar Máquina com Ansible
 
 1. O arquivo *ansible >> inventory.ini* deve receber o IP da VM, gerado pelo terraform.
 
@@ -120,20 +118,20 @@ git_name="username github"
 git_folder="/root/nomeDoRepositorioGit"
 ```
 
-2. Ativar SSH Agent:
+3. Ativar SSH Agent:
 ``` bash
 cd ansible
 ssh agent bash
 ssh add  ~/.ssh/devops
 ```
 
-3. Acessar a pasta com os manifestos:
+4. Acessar a pasta com os manifestos:
 
 ``` bash
 cd ansible
 ```
 
-4. Executar PlaybooK Individualmente:
+5. Executar PlaybooK Individualmente:
 
 Docker:
 ``` bash
