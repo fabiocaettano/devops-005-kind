@@ -55,9 +55,9 @@ cat ~/.ssh/devops.pub
 4. Guardar num local seguro e não publicar em nenhum local, é um dado sensivel.
 
 
-## Máquina Virtual - Droplet
+## $${\color{Red} Provisionar \space Máquina \space Virtual \space com \space TerraForm}$$
 
-### Provisionar Máquina Virtual com TerraForm
+### Provisionar
 
 1. A configuração do Terraform irá provisionar uma máquina com a seguinte configuração:
 - Sistema Operacional Ubuntu 20.4;
@@ -96,11 +96,13 @@ ssh root@IpDaVm
 ```
 
 6. Após usar o recurso é necessário destrui-lo para evitar custos, o cloud-provider é cobrado.
-``` bash
+``` bash## $${\color{Red} Provisionar \space Máquina \space Virtual \space com \space TerraForm}$$
 terraform destroy -auto-approve
 ```
 
-### Configurar Máquina com Ansible
+## $${\color{Red} Configurar \space Máquina \space Virtual \space com \space Ansible}$$
+
+### Configurar 
 
 1. O arquivo *ansible >> inventory.ini* deve receber o IP da VM, gerado pelo terraform.
 
