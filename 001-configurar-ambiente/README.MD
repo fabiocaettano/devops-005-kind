@@ -1,4 +1,4 @@
-# Configurar Ambiente utilizando a Digital Ocean
+# Configurar Ambiente
 
 ## Gerar Chave SSH
 
