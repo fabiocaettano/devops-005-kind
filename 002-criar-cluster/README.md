@@ -30,13 +30,10 @@ kubectl get nodes
 
 ### Digital Ocean
 
-Provisionar com Terra Form:
-
+Arquivo config:
 ``` bash
-cd terraform
-terraform init
-terraform plan
-terraform apply -auto-approve
+ls -la ~/.kube
+cat config
 ```
 
 Consultar os nodes:
@@ -44,7 +41,8 @@ Consultar os nodes:
 kubectl get nodes
 ```
 
-### 2. Mudar Contexto
+
+## Mudar Contexto
 
 Consultar nome dos clusters:
 
@@ -62,4 +60,5 @@ Consultar os nodes:
 ``` bash
 kubectl get nodes
 ```
+
 
