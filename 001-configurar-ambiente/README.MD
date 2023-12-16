@@ -1,6 +1,6 @@
 # Configurar Ambiente
 
-## $${\color{Red} Gerar Chave SSH na Máquina Local}$$
+## $${\color{Red} Gerar \space Chave \space SSH \spcace na \space Máquina \space Local}$$
 
 1. Gerar a chave
 ``` bash
