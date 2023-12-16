@@ -25,7 +25,7 @@ ls -la ~/.ssh
 ```
 
 
-## Cloud Provider - Digital Ocean
+## $${\color{Red} Cloud \space Provider \space - \space Digital \space Ocean}$$
 
 ### Configurar SSH
 
