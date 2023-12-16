@@ -1,0 +1,21 @@
+# Configurar Ambiente -  Digital Ocean
+
+## Chave SSH
+
+## Digital Ocean
+
+SSH
+
+TOKEN
+
+
+## 1.1 TerraForm - Provisioar VM
+
+## 1.2 TerraForm - Provisionar Cluster Kubernetes
+
+## 1.3 Ansible - Configurar VM
+
+## 1.4 Transferir Chave SSH
+
+
+### 1. Criar cluster local ou no cloud provider
