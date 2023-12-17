@@ -1,4 +1,4 @@
-# Configurar Ambiente
+# $${\color{Black} Configurar \space Ambiente}$$
 
 ## $${\color{Red} Gerar \space Chave \space SSH \space na \space Máquina \space Local}$$
 
@@ -54,8 +54,6 @@ cat ~/.ssh/devops.pub
 
 
 ## $${\color{Red} Provisionar \space Máquina \space Virtual \space com \space TerraForm}$$
-
-### Provisionar
 
 1. A configuração do Terraform irá provisionar uma máquina com a seguinte configuração:
 - Sistema Operacional Ubuntu 20.4;
