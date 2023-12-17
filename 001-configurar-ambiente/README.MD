@@ -1,4 +1,4 @@
-# $${\color{Black} Configurar \space Ambiente}$$
+# $${\color{Black} Configurar \space Máquina \space Virual}$$
 
 
 ## $${\color{Red} Gerar \space Chave \space SSH \space na \space Máquina \space Local}$$
@@ -24,9 +24,30 @@ $ Enter passphase again:
 $ ls -la ~/.ssh
 ```
 
+## $${\color{Red} GIT }$$
+
+### $${\color{blue} Configurar \space SSH}$$
+
+1. No site *github.com*  ir na opção *Settings >>  SSH and GPG Keys >> Botão New SSH Key*.
+
+2. No campo *Title" informe o nome da chave *devops*.
+
+3. No campo *Key Type* manter o valor Authentication Key.
+
+4. Na máquina local copiar o conteúdo da chave publica:
+
+``` bash
+$ cat ~/.ssh/devops.pub
+```
+
+5. Voltar no site e colar o conteúdo da chave pública no campo Key.
+
+6. Concluir utilizando o botão *Add SSH Key*
+
+7. Esta isso permitirá que a máquina remota possa clonar os repostiórios do git utilizados nestes laboratório.
+
 
 ## $${\color{Red} Cloud \space Provider \space - \space Digital \space Ocean}$$
-
 
 ### $${\color{blue} Configurar \space SSH}$$
 
