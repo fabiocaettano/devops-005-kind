@@ -35,7 +35,7 @@ $ ls -la ~/.ssh
 2. Na máquina local copiar o conteúdo da chave publica:
 
 ``` bash
-cat ~/.ssh/devops.pub
+$ cat ~/.ssh/devops.pub
 ```
 
 3. Voltar no site e colar a Public Key.
@@ -76,27 +76,27 @@ size = "s-2vcpu-4gb"
 
 3. Provisionar máquina com terraform:
 ``` bash
-cd terraform/droplet
-terraform init
-terraform plan
-terraform apply -auto-approve
+$ cd terraform/droplet
+$ terraform init
+$ terraform plan
+$ terraform apply -auto-approve
 ```
  
 4. Consultar o IP da máquina provisionada:
 ``` bash
-terraform output
+$ terraform output
 ```
 
 5. Acessar máquina virtual:
 ``` bash
-ssh agent bash
-ssh add ~/.ssh/devops
-ssh root@IpDaVm 
+$ ssh agent bash
+$ ssh add ~/.ssh/devops
+$ ssh root@IpDaVm 
 ```
 
 6. Após usar o recurso é necessário destrui-lo para evitar custos, o cloud-provider é cobrado.
-``` bash## $${\color{Red} Provisionar \space Máquina \space Virtual \space com \space TerraForm}$$
-terraform destroy -auto-approve
+``` bash
+$ terraform destroy -auto-approve
 ```
 
 ## $${\color{Red} Configurar \space Máquina \space Virtual \space com \space Ansible}$$
@@ -114,73 +114,65 @@ informar o ip da vm gerado pel terraform
 [droplet01:vars]
 git_email="email credencais git hub"
 git_name="username github"
-git_folder="/root/nomeDoRepositorioGit"
 ```
 
 3. Ativar SSH Agent:
 ``` bash
-cd ansible
-ssh agent bash
-ssh add  ~/.ssh/devops
+$ cd ansible
+$ ssh agent bash
+$ ssh add  ~/.ssh/devops
 ```
 
 4. Acessar a pasta com os manifestos:
 
 ``` bash
-cd ansible
+$ cd ansible
 ```
 
 5. Executar PlaybooK Individualmente:
 
 - Docker:
 ``` bash
-ansible-playbook -i inventory.ini playbook/01-docker.yaml
+$ ansible-playbook -i inventory.ini playbook/01-docker.yaml
 ```
 - Kubectl:
 ``` bash
-ansible-playbook -i inventory.ini playbook/02-kubectl.yaml
+$ ansible-playbook -i inventory.ini playbook/02-kubectl.yaml
 ```
 - Kind:
 ``` bash
-ansible-playbook -i inventory.ini playbook/03-kind.yaml
+$ ansible-playbook -i inventory.ini playbook/03-kind.yaml
 ```
 - K3D:
 ``` bash
-ansible-playbook -i inventory.ini playbook/04-K3D.yaml
+$ ansible-playbook -i inventory.ini playbook/04-K3D.yaml
 ```
 
 - Transferir chave devops da máquina local para remota:
 ``` bash
-ansible-playbook -i inventory.ini playbook/05-ssh.yaml
+$ ansible-playbook -i inventory.ini playbook/05-ssh.yaml
 ```
 
 - Configurar as credenciais do Git:
 ``` bash
-ansible-playbook -i inventory.ini playbook/06-git.config.yaml
+$ ansible-playbook -i inventory.ini playbook/06-git.config.yaml
 ```
 
+## $${\color{Red} Clonar \space Projeto}$$
 
-### Acessar VM
-
-## Cluster
-### Provisionar Cluster Kubernetes com TerraForm
-### Arquivo config
-### Mudar Contexto
-
-Consultar nome dos clusters:
-
+1. Ativar Agente SSH:
 ``` bash
-kubectl config get-clusters
+$ ssh agent bash
+$ ssh add ~/.ssh/devops
+$ ssh root@IpDaMaquinaVirtual
 ```
 
-Alterar Contexto entre os clusters:
-
+2. Acessar Máquina Virtual:
 ``` bash
-
+$ ssh root@IpDaMaquinaVirtual
 ```
 
-Consultar os nodes:
-``` bash
-kubectl get nodes
+3. Clonar Projeto
 ```
-
+$ git clone
+```
