@@ -4,30 +4,28 @@
 
 1. Gerar a chave
 ``` bash
-ssh-keygen -t rsa -b 2048
+$ ssh-keygen -t rsa -b 2048
 ```
 
 2. Informar o nome da chave:
-
 ``` bash
-Enter file in which to save the key: /home/user/.ssh/devops
+$ Enter file in which to save the key: /home/user/.ssh/devops
 ```
 
 3. Informe uma palava secreta:
 ``` bash
-Enter passphrase:
-Enter passphase again:
+$ Enter passphrase:
+$ Enter passphase again:
 ```
 
 4. Consultar:
 ``` bash
-ls -la ~/.ssh
+$ ls -la ~/.ssh
 ```
-
 
 ## $${\color{Red} Cloud \space Provider \space - \space Digital \space Ocean}$$
 
-### Configurar SSH
+### $${\color{blue} Configurar \space SSH}$$
 
 1. No site da Digital Ocean acessar *Settings >> Aba Security >> Botão Add Key*.
 
