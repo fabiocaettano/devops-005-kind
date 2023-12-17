@@ -101,8 +101,6 @@ terraform destroy -auto-approve
 
 ## $${\color{Red} Configurar \space Máquina \space Virtual \space com \space Ansible}$$
 
-### Configurar 
-
 1. O arquivo *ansible >> inventory.ini* deve receber o IP da VM, gerado pelo terraform.
 
 ``` ini
