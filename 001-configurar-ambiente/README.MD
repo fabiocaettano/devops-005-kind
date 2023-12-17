@@ -1,5 +1,6 @@
 # $${\color{Black} Configurar \space Ambiente}$$
 
+
 ## $${\color{Red} Gerar \space Chave \space SSH \space na \space Máquina \space Local}$$
 
 1. Gerar a chave
@@ -23,7 +24,9 @@ $ Enter passphase again:
 $ ls -la ~/.ssh
 ```
 
+
 ## $${\color{Red} Cloud \space Provider \space - \space Digital \space Ocean}$$
+
 
 ### $${\color{blue} Configurar \space SSH}$$
 
