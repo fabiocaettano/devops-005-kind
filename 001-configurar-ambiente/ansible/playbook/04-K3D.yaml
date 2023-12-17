@@ -1,9 +1,0 @@
----
-- name: Install K3d
-  hosts: droplet01
-  gather_facts: true
-  tasks:
-    - name: Download and Execute Install
-      become: true
-      shell: >
-        curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash

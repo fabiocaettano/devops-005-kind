@@ -3,7 +3,7 @@
 
 ## $${\color{Red} Gerar \space Chave \space SSH \space na \space Máquina \space Local}$$
 
-1. Gerar a chave
+1. Gerar a chave:
 ``` bash
 $ ssh-keygen -t rsa -b 2048
 ```
@@ -28,51 +28,51 @@ $ ls -la ~/.ssh
 
 ### $${\color{blue} Configurar \space SSH}$$
 
-1. No site *github.com*  ir na opção *Settings >>  SSH and GPG Keys >> Botão New SSH Key*.
+1. No site [GitHub](https://github.com)  ir na opção **Settings >>  SSH and GPG Keys >> Botão New SSH Key**.
 
-2. No campo *Title" informe o nome da chave *devops*.
+2. No **campo Title** informe o nome da **Chave Pública SSH**.
 
-3. No campo *Key Type* manter o valor Authentication Key.
+3. No **campo Key Type** manter o valor Authentication Key.
 
-4. Na máquina local copiar o conteúdo da chave publica:
+4. Na máquina local copiar o conteúdo da chave publica SSH:
 
 ``` bash
 $ cat ~/.ssh/devops.pub
 ```
 
-5. Voltar no site e colar o conteúdo da chave pública no campo Key.
+5. Voltar no site e colar o conteúdo da chave pública no **campo Key**.
 
-6. Concluir utilizando o botão *Add SSH Key*
+6. Concluir utilizando o botão **Add SSH Key**.
 
-7. Esta isso permitirá que a máquina remota possa clonar os repostiórios do git utilizados nestes laboratório.
+7. Esta isso permitirá que a máquina remota possa clonar os repostiórios do git.
 
 
 ## $${\color{Red} Cloud \space Provider \space - \space Digital \space Ocean}$$
 
 ### $${\color{blue} Configurar \space SSH}$$
 
-1. No site da Digital Ocean acessar *Settings >> Aba Security >> Botão Add Key*.
+1. No site da Digital Ocean acessar **Settings >> Aba Security >> Botão Add Key**.
 
-2. Na máquina local copiar o conteúdo da chave publica:
+2. Na máquina local copiar o conteúdo da chave publica SSH:
 
 ``` bash
 $ cat ~/.ssh/devops.pub
 ```
 
-3. Voltar no site e colar a Public Key.
+3. Voltar no site e colar o contéudo da chave pública Key.
 
-4. Informar o nome Public Key, o mesmo da máquia local.
+4. Informar o nome da chave pública Key, o mesmo da máquia local.
 
-5. Botão *Add SSH Key*.
+5. Botão **Add SSH Key**.
 
 
 ### $${\color{blue} Gerar \space TOKEN}$$
 
-1. No site da Digital Ocean acessar *API >> Aba Tokens >> Botão Generate New Token*.
+1. No site da [Digital Ocean](https://cloud.digitalocean.com/) acessar **API >> Aba Tokens >> Botão Generate New Token**.
 
-2. Informe um nome para o Token e defina a expiration.
+2. Informe um nome para o Token e defina o tempo de expiração, no campo **expiration**.
 
-3. Copie o Token.
+3. Copiar Token, exibido na tela.
 
 4. Guardar num local seguro e não publicar em nenhum local, é um dado sensivel.
 
@@ -82,7 +82,8 @@ $ cat ~/.ssh/devops.pub
 1. A configuração do Terraform irá provisionar uma máquina com a seguinte configuração:
 - Sistema Operacional Ubuntu 20.4;
 - Processador com 2 vcpu;
-- 4 GB de memória.
+- 4 GB de memória;
+- 50 GB de HD.
 
 2. O token gerado no site da Digital Ocean deve ser inserido no arquivo *terraform >> terraform.tfvars":
 ``` tfvars
@@ -99,8 +100,8 @@ size = "s-2vcpu-4gb"
 ``` bash
 $ cd terraform/droplet
 $ terraform init
-$ terraform plan
-$ terraform apply -auto-approve
+$ terraform plan -out=infra.out
+$ terraform apply "infra.out"
 ```
  
 4. Consultar o IP da máquina provisionada:
@@ -150,47 +151,49 @@ $ ssh add  ~/.ssh/devops
 $ cd ansible
 ```
 
-5. Executar PlaybooK Individualmente:
+5. Executar PlaybooK:
 
-- Docker:
+Instalar Docker, Kubectl, Kind, K3d, transferir chaves SSH e configurar credenciais do GIT.
 ``` bash
-$ ansible-playbook -i inventory.ini playbook/01-docker.yaml
-```
-- Kubectl:
-``` bash
-$ ansible-playbook -i inventory.ini playbook/02-kubectl.yaml
-```
-- Kind:
-``` bash
-$ ansible-playbook -i inventory.ini playbook/03-kind.yaml
-```
-- K3D:
-``` bash
-$ ansible-playbook -i inventory.ini playbook/04-K3D.yaml
+$ ansible-playbook - inventory.ini playbook/configurar-ambiente.yaml
 ```
 
-- Transferir chave devops da máquina local para remota:
+Validar instalação acessando a Máquina Virtual (opcional):
 ``` bash
-$ ansible-playbook -i inventory.ini playbook/05-ssh.yaml
+$ ssh root@IpDaMáquinaVirtual
 ```
 
-- Configurar as credenciais do Git:
+Consultar:
 ``` bash
-$ ansible-playbook -i inventory.ini playbook/06-git.config.yaml
+$ docker --version
+$ kubectl version
+$ kind version
+$ k3d version
+$ ls -la ~/.ssh
+$ git config --list
 ```
+
 
 ## $${\color{Red} Clonar \space Projeto}$$
 
-1. Ativar Agente SSH:
+1. Na máquina local:
 ``` bash
 $ ssh agent bash
 $ ssh add ~/.ssh/devops
 $ ssh root@IpDaMaquinaVirtual
 ```
 
-2. Acessar Máquina Virtual:
+2. Na máquina remota, clonar o projeto:
 ``` bash
-$ ssh root@IpDaMaquinaVirtual
+$ ssh agent bash
+$ ssh add ~/.ssh/devops
+$ git clone git@github.com:fabiocaettano/devops-005-kubernetes.git
+```
+
+3. Consultar na máquina remota:
+``` bash
+cd devops-005-kubernetes
+git branch -a
 ```
 
 3. Clonar Projeto

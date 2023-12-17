@@ -1,0 +1,127 @@
+---
+- name: Install aptitude, Docker e Docker-Compose
+  hosts: droplet01
+  gather_facts: true
+  tasks:
+    - name: Install aptitude
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: true
+
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Update apt and install docker-ce
+      apt:
+        name: docker-ce
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: u+x,g+x,o+x
+
+- name: Install Kubectl
+  hosts: droplet01
+  gather_facts: true
+  tasks:
+    - name: Dowload
+      shell: >
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    - name: Install
+      become: root
+      shell: >
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+    - name: Move Kubectl
+      become: root
+      shell: |
+          chmod +x kubectl
+          mkdir -p ~/.local/bin
+          mv ./kubectl ~/.local/bin/kubectl
+
+---
+- name: Install Kind
+  hosts: droplet01
+  gather_facts: true
+  tasks:
+     - name: Download Binary
+       shell: >
+          [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+     - name: Move to folder bin
+       become: root
+       shell: |
+          chmod +x ./kind
+          sudo mv ./kind /usr/local/bin/kind
+
+- name: Install K3d
+  hosts: droplet01
+  gather_facts: true
+  tasks:
+    - name: Download and Execute Install
+      become: true
+      shell: >
+        curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+
+- name: SSH
+  hosts: droplet01
+  gather_facts: True
+  tasks:
+    - name: Send Authorized Key
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file','/home/fabio/.ssh/{{ chave }}.pub') }}"
+    - name: Copy Private Key
+      become: true
+      ansible.builtin.copy:
+        src: "/home/fabio/.ssh/{{ chave }}"
+        dest: "/root/.ssh/{{ chave}}"
+        owner: root
+        group: root
+        mode: u=rw,g=,o=
+    - name: Copy Public Key
+      become: true
+      ansible.builtin.copy:
+        src: "/home/fabio/.ssh/{{ chave }}.pub"
+        dest: "/root/.ssh/{{ chave}}.pub"
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
+             
+- name: Git Global
+  hosts: droplet01
+  gather_facts: True
+  tasks:     
+     - name: "Config Global List"
+       shell: |
+         git config --global user.email {{ git_email }}
+         git config --global user.name {{ git_name }}
+       args:
+        chdir: /root
