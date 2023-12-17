@@ -49,10 +49,10 @@ kubectl get nodes
 kubectl config get-clusters
 ```
 
-Alterar Contexto entre os clusters:
+2. Alterar Contexto entre os clusters:
 
 ``` bash
-
+$ kubectl config use-context nameCluster
 ```
 
 Consultar os nodes:
