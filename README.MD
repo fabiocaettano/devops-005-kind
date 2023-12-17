@@ -1,7 +1,10 @@
 # devops-005-kubernetes
 
+<h1>Laboratório Kubernetes</h1>
 
-* [Executar Projeto](https://github.com/fabiocaettano/devops-005-kubernetes/tree/feature/002-create-pod/001-executar-projeto#colorblack-executar-space-projeto-)
+* [Executar Projeto](001-executar-projeto#colorblack-executar-space-projeto-)
 * [Configurar Ambiente](002-configurar-ambiente#colorblack-configurar-space-m%C3%A1quina-space-virual)    
-* [Criar Cluster](002-criar-cluster/README.md#cluster-kubernetes)
-* [POD](003-create-pod/README.md#criar-pod)
+* [Cluster na Digital Ocean](002-configurar-ambiente#colorblack-configurar-space-m%C3%A1quina-space-virual)
+* [Cluster com K3D](002-configurar-ambiente#colorblack-configurar-space-m%C3%A1quina-space-virual)
+* [Cluster com Kind](003-criar-cluster/local/kind/README.md#colorblack-cluster-space-com-space-kind-)
+* [POD](004-create-pod#pod)
