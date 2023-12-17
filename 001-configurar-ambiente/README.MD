@@ -42,7 +42,7 @@ cat ~/.ssh/devops.pub
 5. Botão *Add SSH Key*.
 
 
-### Gerar TOKEN
+### $${\color{blue} Gerar \space TOKEN}$$
 
 1. No site da Digital Ocean acessar *API >> Aba Tokens >> Botão Generate New Token*.
 
