@@ -18,14 +18,14 @@ $ ssh-add ~/.ssh/devops
 $ ansible-playbook -i inventory.ini playbook/configurar-ambiente.yaml
 ```
 
-5. Agora a máquina remota para clonar o projeto:
+5. Acessar a máquina remota:
 ``` bash
 $ ssh-agent bash
 $ ssh-add ~/.ssh/devops
 $ ssh root@IpDaMaquinaVirtual
 ```
 
-Na máquina remota:
+6. Na máquina remota, ativar o agente ssh e Clonar o projeto.
 ``` bash
 $ ssh-agent bash
 $ ssh-add ~/.ssh/devops
