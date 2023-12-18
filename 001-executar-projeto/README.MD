@@ -25,7 +25,7 @@ $ ssh-add ~/.ssh/devops
 $ ssh root@IpDaMaquinaVirtual
 ```
 
-6. Na máquina remota, ativar o agente ssh e Clonar o projeto.
+6. Na máquina remota, ativar o agente ssh e clonar o projeto.
 ``` bash
 $ ssh-agent bash
 $ ssh-add ~/.ssh/devops
