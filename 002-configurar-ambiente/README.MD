@@ -44,7 +44,7 @@ $ cat ~/.ssh/devops.pub
 
 6. Concluir utilizando o botão **Add SSH Key**.
 
-7. Esta isso permitirá que a máquina remota possa clonar os repostiórios do git.
+7. Isso permitirá que a máquina remota possa clonar os repostiórios do git.
 
 
 ## $${\color{Red} Cloud \space Provider \space - \space Digital \space Ocean}$$
