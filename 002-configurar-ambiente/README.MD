@@ -34,7 +34,7 @@ $ ls -la ~/.ssh
 
 3. No **campo Key Type** manter o valor Authentication Key.
 
-4. Na máquina local copiar o conteúdo da chave publica SSH:
+4. Agora na máquina local copiar o conteúdo da chave publica SSH:
 
 ``` bash
 $ cat ~/.ssh/devops.pub
