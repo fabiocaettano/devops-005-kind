@@ -7,11 +7,14 @@ Sumário
    - [2.1 Kind](#31-kind)
    -  [2.2 K3d](#32-k3d)
 3. [0 Mudar de Contexto](#30-mudar-contexto)
+4. [Destruir Cluster](#40-destruir-cluster)
 
 
 ## <h2>1.0 Cloud Provider </h2>
 
 ### <h3>1.1 Digital Ocean</h3>
+
+#### <h4>1.1.1 Provisionar Cluster</h4>
 
 1. Provisionar cluster com terraform:
 ``` bash
@@ -49,6 +52,13 @@ cat cluster-devops-005-kubeconfig.yaml >> /root/.kube/config
 8. Consultar os nodes:
 ``` bash
 kubectl get nodes
+```
+
+#### <h4>4.0 Destruir Cluster</h4>
+
+1. Destruir recurso:
+``` bash
+terraform destroy -auto-approve
 ```
 
 ## <h2>2.0 Local</h2>
