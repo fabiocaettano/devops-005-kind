@@ -66,7 +66,6 @@
           mkdir -p ~/.local/bin
           mv ./kubectl ~/.local/bin/kubectl
 
----
 - name: Install Kind
   hosts: droplet01
   gather_facts: true
