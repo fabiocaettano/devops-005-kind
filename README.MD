@@ -19,10 +19,10 @@ $ ssh-keygen -t rsa -b 2048
 $ Enter file in which to save the key: /home/user/.ssh/devops
 ```
 
-3. Informe uma palava secreta:
+3. Informe uma palavra secreta:
 ``` bash
-$ Enter passphrase:
-$ Enter passphase again:
+$ Enter passphrase: palavraSecreta
+$ Enter passphase again: palavraSecreta
 ```
 
 4. Consultar:
@@ -51,11 +51,9 @@ $ cat ~/.ssh/devops.pub
 7. Isso permitirá que a máquina remota possa clonar os repostiórios do git.
 
 
-## $${\color{Red} Cloud \space Provider \space - \space Digital \space Ocean}$$
+### <h3>2.3 Cloud Provider - Configurar SSH e Gerar Token</h3>
 
-### $${\color{blue} Configurar \space SSH}$$
-
-1. No site da Digital Ocean acessar **Settings >> Aba Security >> Botão Add Key**.
+1. No site da [Digital Ocean](https://cloud.digitalocean.com/) acessar **Settings >> Aba Security >> Botão Add Key**.
 
 2. Na máquina local copiar o conteúdo da chave publica SSH:
 
@@ -69,19 +67,16 @@ $ cat ~/.ssh/devops.pub
 
 5. Botão **Add SSH Key**.
 
+6. Ainda no site acessar **API >> Aba Tokens >> Botão Generate New Token**.
 
-### $${\color{blue} Gerar \space TOKEN}$$
+7. Informe um nome para o Token e defina o tempo de expiração, no campo **expiration**.
 
-1. No site da [Digital Ocean](https://cloud.digitalocean.com/) acessar **API >> Aba Tokens >> Botão Generate New Token**.
+8. Copiar Token, exibido na tela.
 
-2. Informe um nome para o Token e defina o tempo de expiração, no campo **expiration**.
-
-3. Copiar Token, exibido na tela.
-
-4. Guardar num local seguro e não publicar em nenhum local, é um dado sensivel.
+9. Guardar num local seguro e não publicar em nenhum local, é um dado sensivel.
 
 
-## $${\color{Red} Provisionar \space Máquina \space Virtual \space com \space TerraForm}$$
+### <h3>2.4 Provisionar Máquina Virtual com TerraForm<h3>
 
 1. A configuração do Terraform irá provisionar uma máquina com a seguinte configuração:
 - Sistema Operacional Ubuntu 20.4;
