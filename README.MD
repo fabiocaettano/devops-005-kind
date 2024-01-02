@@ -3,9 +3,68 @@
 
 ## <h2>1.0 Executar Projeto</h2>
 
+1. Provisionar uma máquina virtual no serviço da Digital Oceancom TerraForm:
+
+``` bash
+terraform plan -out=infra.out
+terraform apply "infra.out"
+```
+
+2. Informar o IP no arquivo *inventory.ini*:
+
+``` ini
+[droplet01]
+Informar aqui o IP gerado pelo TerraForm para Máquina Virtual
+
+
+[droplet01:vars]
+git_email="Informar as credenciais do GIT"
+git_name="Informar as credenciais do GIT"
+chave="devops"
+```
+
+
+2. Configurar a máquian virtual provisionada com Ansible:
+
+``` bash
+ssh-agent bash
+ssh-add ~/.ssh/devops
+ansible-playbook -i inventory.ini playbook/configurar-ambiente.yaml
+```
+
+3. Acessar a máquina virtual e clonar o projeto:
+
+``` bash
+ssh-agent bash
+ssh-add ~/.ssh/devops
+ssh root@ipDaMaquinaVirtial
+```
+
+4. Configurar VSCode:
+
+Utilizar a opção *Remote Explorer >> Open SSH Confih File >> c:/Users/nameUser/.ssh/config*, para configurar o acesso para VM:
+
+Configuração:
+``` config
+Host vm
+   HostName ipDaMaquinaVirtual
+   User root
+   IdentityFile ~/.ssh/devops
+```
 
 
 ## <h2>2.0 Configurar Ambiente</h2>
+
+### Instalação na Máquina Virtual:
+
+- Docker;
+- Docker-Compose;
+- Kubectl;
+- Kind;
+- K3D;
+- Copiar Chave SSH;
+- Configuração Git.
+
 
 ### <h3>2.1 Gerar Chave SSH na Máquina Local</h3>
 
