@@ -120,7 +120,7 @@ $ ssh root@IpDaVm
 $ terraform destroy -auto-approve
 ```
 
-## $${\color{Red} Configurar \space Máquina \space Virtual \space com \space Ansible}$$
+### <h3>2.5 Configurar Máquina Virtual com Ansible</h3>
 
 1. O arquivo *ansible >> inventory.ini* deve receber o IP da VM, gerado pelo terraform.
 
@@ -173,7 +173,7 @@ $ git config --list
 ```
 
 
-## $${\color{Red} Clonar \space Projeto}$$
+### <h3>2.6 Clonar Projeto na Máquina Virtual</h3>
 
 1. Na máquina local:
 ``` bash
@@ -199,3 +199,20 @@ git branch -a
 ```
 $ git clone https://github.com/fabiocaettano/devops-005-kubernetes.git
 ```
+ 
+### <h3>2.7 Configurar VSCode</h3>
+
+Utilizar a opção *Remote Explorer >> Open SSH Confih File >> c:/Users/nameUser/.ssh/config*, para configurar o acesso para VM:
+
+Configuração:
+``` config
+Host vm
+   HostName ipDaMaquinaVirtual
+   User root
+   IdentityFile ~/.ssh/devops
+```
+
+Após configuração:
+- solicitar para conectar;
+- será solicitado a palavra chave criada para o SSH;
+- selecione a pasta do projeto que foi clonada na máquina virtual.
