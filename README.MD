@@ -1,12 +1,12 @@
 # <h1>Criar Cluster</h1>
 
 Sumário
-- [1.0 Cloud Provider](#20-cloud-provider)
-     [1.1 Digital Ocean](#21-digital-ocean)
-- [2.0 Local](#30-local)
-    [2.1 Kind](#31-kind)
-    [2.2 K3d](#32-k3d)
-- [3.0 Mudar de Contexto](#30-mudar-contexto)
+1. [Cloud Provider](#20-cloud-provider)
+    - [1.1 Digital Ocean](#21-digital-ocean)
+2. [Local](#30-local)
+   - [2.1 Kind](#31-kind)
+   -  [2.2 K3d](#32-k3d)
+3. [0 Mudar de Contexto](#30-mudar-contexto)
 
 ## <h2>1.0 Cloud Provider </h2>
 
