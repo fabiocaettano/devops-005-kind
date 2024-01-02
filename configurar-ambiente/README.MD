@@ -198,5 +198,5 @@ git branch -a
 
 3. Clonar Projeto
 ```
-$ git clone
+$ git clone https://github.com/fabiocaettano/devops-005-kubernetes.git
 ```
