@@ -8,6 +8,7 @@ Sumário
    -  [2.2 K3d](#32-k3d)
 3. [0 Mudar de Contexto](#30-mudar-contexto)
 
+
 ## <h2>1.0 Cloud Provider </h2>
 
 ### <h3>1.1 Digital Ocean</h3>
@@ -54,8 +55,41 @@ kubectl get nodes
 
 ### <h3>2.1 Kind</h3>
 
+1. Criar um manifest0:
+``` yaml
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+- role: worker
+```
+
+2. Criar o cluster:
+``` bash
+cd local/kind
+kind create cluster --config=create-cluster-kind.yaml --name=cluster-labs
+kubectl cluster-info --context kind-fullcycle
+```
+
+3. Consultar os nodes:
+``` bash
+kubectl get nodes
+```
+
+
 ### <h3>2.2 K3d</h3>
 
+1. Criar Cluster:
+``` bash
+k3d cluster create --servers 1 --agents 2 -p "8080:30000@loadbalancer"
+kubectl cluster-info
+```
+2. Consultar os nodes:
+``` bash
+kubectl get nodes
+```
 
 ## <h2>3.0 Mudar Contexto</h2>
 
