@@ -1,7 +1,0 @@
-token = ""
-clustername = "cluster-devops-005"
-region = "nyc1"
-k8s_version = "1.26.9-do.0"
-pool_name = "worker-pool"
-node_count = "3"
-size = "s-2vcpu-2gb"
