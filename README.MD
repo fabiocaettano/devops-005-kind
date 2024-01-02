@@ -1,7 +1,13 @@
-# <h1>Configurar Máquina Virual</h1>
+# Ambiente para o Laboratório
 
 
-## <h2>Gerar Chave SSH na MáquinaLocal</h2>
+## <h1>1.0 Executar Projeto</h1>
+
+
+
+## <h2>2.0 Configurar Ambiente</h2>
+
+### <h3>2.1 Gerar Chave SSH na Máquina Local</h3>
 
 1. Gerar a chave:
 ``` bash
@@ -24,9 +30,7 @@ $ Enter passphase again:
 $ ls -la ~/.ssh
 ```
 
-## $${\color{Red} GIT }$$
-
-### $${\color{blue} Configurar \space SSH}$$
+### <h3>2.2 Configurar Git</h3>
 
 1. No site [GitHub](https://github.com)  ir na opção **Settings >>  SSH and GPG Keys >> Botão New SSH Key**.
 
