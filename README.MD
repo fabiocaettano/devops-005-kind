@@ -53,7 +53,7 @@ Host vm
 ```
 
 
-## <h2>2.0 Configurar Ambiente</h2>
+## <h2>2.0 Configurar Ambiente | Passo a Passo/h2>
 
 ### Instalação na Máquina Virtual:
 
