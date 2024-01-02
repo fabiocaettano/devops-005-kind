@@ -1,5 +1,17 @@
 # Ambiente para o Laboratório
 
+<p>Sumário</p>
+
+1. [Executar Projeto](#10-executar-projeto)
+2. [Configuar Ambiente](#20-configurar-ambiente--passo-a-passo)
+   - [2.1 Gerar Chave SSH ma Máquina Local](#21-gerar-chave-ssh-na-máquina-local)
+   - [2.2 Configurar GIT](#22-configurar-git)
+   - [2.3 Cloud Provider - Configurar SSH e TOKEN](#23-cloud-provider---configurar-ssh-e-gerar-token)
+   - [2.4 Provisionar Máquina Virtual com Terraform](#24-provisionar-máquina-virtual-com-terraform)
+   - [2.5 Configurar Máquina Virtual com Ansible](#25-configurar-máquina-virtual-com-ansible)
+   - [2.6 Clonar Projeto na Máquina Virtual](#26-clonar-projeto-na-máquina-virtual)
+   - [2.7 Configurar VSCode](#27-configurar-vscode)
+
 
 ## <h2>1.0 Executar Projeto</h2>
 
@@ -24,7 +36,7 @@ chave="devops"
 ```
 
 
-2. Configurar a máquian virtual provisionada com Ansible:
+3. Configurar a máquian virtual provisionada com Ansible:
 
 ``` bash
 ssh-agent bash
@@ -32,7 +44,7 @@ ssh-add ~/.ssh/devops
 ansible-playbook -i inventory.ini playbook/configurar-ambiente.yaml
 ```
 
-3. Acessar a máquina virtual e clonar o projeto:
+4. Acessar a máquina virtual e clonar o projeto:
 
 ``` bash
 ssh-agent bash
@@ -40,7 +52,7 @@ ssh-add ~/.ssh/devops
 ssh root@ipDaMaquinaVirtial
 ```
 
-4. Configurar VSCode:
+5. Configurar VSCode:
 
 Utilizar a opção *Remote Explorer >> Open SSH Confih File >> c:/Users/nameUser/.ssh/config*, para configurar o acesso para VM:
 
