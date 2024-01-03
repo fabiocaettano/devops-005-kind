@@ -8,7 +8,7 @@ Sumário
 2. [Local](#20-local)
    - [2.1 Kind](#21-kind)
    -  [2.2 K3d](#22-k3d)
-3. [0 Mudar de Contexto](#30-mudar-contexto)
+3. [Mudar de Contexto](#30-mudar-contexto)
 
 
 
